@@ -17,7 +17,7 @@ let greaterThenAndEqual = number[1] <= number[3];
 console.log('greaterThenAndEqual: ', greaterThenAndEqual);
 
 // 동등(등급이나 정도가 같다) → boolean
-let equal = number[0] === number[2];
+let equal = number[0] === number[1];
 console.log('equal: ', equal);
 
 // 다름(같지 않음) → boolean
@@ -44,5 +44,5 @@ console.log('same: ', same);
 // 6. ...
 // 7. 비교가 종료되었고, 문자열 길이도 같을 경우 두 문자열은 동일함으로 결론 도출
 
-// console.log('Design' <= 'Development');
-// console.log('디자인' <= '개발');
+console.log('Design' <= 'Development');
+console.log('디자인' <= '개발');

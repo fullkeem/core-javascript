@@ -87,3 +87,6 @@ total = total * count + pow;
 2 * 5 + 125;
 
 console.log(total); //135
+p;
+o;
+w;

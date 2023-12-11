@@ -55,3 +55,4 @@ function render(node, isActive) {
 
   node.insertAdjacentHTML('beforeend', template);
 }
+render();
