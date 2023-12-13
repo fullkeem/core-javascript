@@ -1,14 +1,12 @@
-/* -------------------- */
-/* Array Type           */
-/* -------------------- */
+/* ------------------------------ */
+/* Array's Methods                */
+/* ------------------------------ */
 
-//Array.isArray
+// Array.isArray
 
-const isArray = (data) => {
-  return (
-    Object.prototype.toString.call(data).slice(8, -1).toLowerCase() === 'array'
-  );
-};
+const isArray = (data) => Array.isArray(data);
+const isNull = (data) =>
+  Object.prototype.toString.call(data).slice(8, -1).toLowerCase() === 'null';
 
 function normalIsArray(data) {
   // return Array.isArray(data)
@@ -17,7 +15,9 @@ function normalIsArray(data) {
   );
 }
 
-const arr = [10, 100, 1000, 10_000];
+// isArray([])  // true | false
+
+// console.log(Array.isArray([]));
 
 const people = [
   {
@@ -33,6 +33,7 @@ const people = [
     job: '치킨집사장',
     age: 51,
     imageSrc: 'asFkzo23',
+    alt: '밝게 웃고있는 치킨집 사장님',
   },
   {
     id: 2,
@@ -50,18 +51,24 @@ const people = [
   },
 ];
 
-//forEach
-// arr.forEach((item, index) => {
-//    console.log(item, index);
-// });
+/* 요소 순환 ---------------------------- */
 
-// for (let i = 0; i < arr.length; i++) {
-//   console.log(arr[i], i);
+// forEach => 반환값 x
+//   [10, 100, 1000, 10_000]
+// arr.forEach((item,index)=>{
+//   // console.log(item,  index );
+// })
+
+// for(let i = 0; i < arr.length; i++){
+//   console.log( arr[i], i );
 // }
+
+// people.forEach(item=> console.log(item.job))
 
 people.forEach((item) => {
   console.log(item.job);
 });
+
 const span = document.querySelectorAll('span');
 
 span.forEach((item) => {
@@ -70,43 +77,67 @@ span.forEach((item) => {
   });
 });
 
-/* 원형 파괴 ------------------------------------------------------------ */
-//push
-//pop
-//unshift
-//shift
-//reverse
-//splice
-//sort
+// 여러 항목들을 이벤트 바인딩 제일 효과적인가? no
 
+// event delegation
+
+// const first = document.querySelector('.first');
+// const second = document.querySelector('.second');
+// const third = document.querySelector('.third');
+
+// first.addEventListener('click',()=>{
+//   console.log('clicked');
+// })
+
+// second.addEventListener('click',()=>{
+//   console.log('clicked');
+// })
+
+// third.addEventListener('click',()=>{
+//   console.log('clicked');
+// })
+
+/* 원형 파괴 ----------------------------- */
+
+// push
+// pop
+// unshift
+// shift
+// reverse
+// splice
+// sort
+
+const arr = [10, 100, 1000, 10_000];
 // const reverseArray = arr.reverse();
-// const reverseArray = arr.toReversed(); // 원형 파괴x  2023ver
 
-// const spliceArray =(arr.splice(1, 2, 'javascript', 'css', 'react'));
-// const spliceArray =(arr.toSpliced(1, 2, 'javascript', 'css', 'react')); // 원형 파괴x  2023ver
+const reverseArray = arr.toReversed(); // 원형 파괴 x  2023
 
-// const aa = arr.sort((a, b) => {
-//   return b - a;
-// });
+// console.log( reverseArray );
 
-// const bb = arr.toSorted((a, b) => {
-//   return b - a;
-// });
+arr.toSpliced(1, 2, 'javascript', 'css', 'react'); // 원형 파괴 x  2023
 
-/*새로운 배열 반환 ---------------------------------------------------  */
-//concat
-//slice
-//toSorted
-//toReversed
-//toSpliced
-//map
+const a = arr.toSorted((a, b) => {
+  // 원형 파괴 x  2023
+  return b - a;
+});
+
+console.log(a);
+
+/* 새로운 배열 반환 ------------------------ */
+
+// concat
+// slice
+// toSorted
+// toReversed
+// toSpliced
+// map
 
 //
 const card = people.map((item, index) => {
   return /* html */ `
     <div class='userCard card${index}'>
       <div class="imageField">
-        <img alt="${item.alt}" />
+        <img src="${item.imageSrc}.jpg" alt="${item.alt}" />
       </div>
       <span>이름 : ${item.name}</span>
       <span>나이 : ${item.age}</span>
@@ -118,91 +149,69 @@ const card = people.map((item, index) => {
 // console.log(card);
 
 card.forEach((item) => {
-  document.body.insertAdjacentHTML('beforeend', item);
+  // document.body.insertAdjacentHTML('beforeend',item);
 });
 
 const newAge = people.map((item) => item.age - 2);
+
 console.log(newAge);
 
-/* 요소 포함 여부 확인 ------------------------------------------------- */
+/* 요소 포함 여부 확인 ---------------------- */
 
-//indexOf
-//lastIndexOf
-//includes
+// indexOf
+// lastIndexOf
+// includes
 
-/* 요소 찾기 ------------------------------------------------------------- */
+/* 요소 찾기 ------------------------------ */
 
-//find
-// const find = people.find((item) => {
-//   return item.name === '송현규';
-// });
-// // 이름이 송현규
+// find
+const findUser = people.findIndex((item) => {
+  return item.name === '송현규';
+});
 
-// //findIndex
-// const find = people.findIndex((item) => {
-//   return item.name === '송현규';
-// });
+// console.log(findUser);
 
-/*요소 걸러내기 ------------------------------------------------------- */
+// 이름이 송현규
 
-const 젊은이들 = people.filter((item) => {
+// findIndex
+
+/* 요소 걸러내기 --------------------------- */
+
+// filter
+
+const 사장님빼고모여 = people.filter((item) => {
   return item.age < 30;
 });
 
-/* 요소별 리듀서(reducer) 실행 -------------------------------- */
-//reduce
+console.log(사장님빼고모여);
+
 /* 요소별 리듀서(reducer) 실행 -------------- */
 
 // reduce
 const totalAge = people.reduce((acc, cur) => acc + cur.age, 0);
 
-const template = people.reduce(
-  (htmlCode, cur) => htmlCode + `<div>${cur.name} : ${cur.age} 살</div>`,
-  ''
-);
+// const template = people.reduce((htmlCode,cur)=> htmlCode + `<div>${cur.name} : ${cur.age} 살</div>` ,'')
+const template = people.reduce((htmlCode, cur) => {
+  return htmlCode + `<div>${cur.name} : ${cur.age} 살</div>`;
+}, '');
 
-// console.log( template );
+console.log(template);
 
 document.body.insertAdjacentHTML('beforeend', template);
 
-// 객체(Object) : 키(key)를 사용해 식별할 수 있는 값을 담은 집합 - `키:값의 집합`
-// 배열(Array) : 순서(index)가 있는 집합 - `값의 집합`
+// reduceRight
 
-// ※ 배열은 특별한 종류의 객체로 대괄호를 사용해 요소에 접근하는 방식은 객체 문법을 사용.
-//   배열은 키(key)가 숫자(index)라는 점이 다름. 즉, 본질은 객체.
-//   순서에 따른 제어가 가능하도록 다양한 메서드와 length 프로퍼티를 언어에서 제공.
+/* string ←→ array 변환 ------------------ */
 
-// 배열 선언
+// split
+// join
 
-// 배열 요소의 총 갯수
+const str = '종명 예진 현주 지인 훈 은원';
 
-// 배열 요소 변경
+// split : 문자 → 배열
+const stringToArray = str.split(' ');
+console.log(stringToArray);
 
-// 배열 요소 추가
-let unshift;
-let push;
-
-// 배열 요소 제거
-let shift;
-let pop;
-
-// 큐(queue) vs. 스택(stack)
-// 큐 FIFO (먼저 들어온 것이 먼저 나간다) ← queue ←
-// 스택 LIFO (나중에 들어온 것이 먼저 나간다) ↓ stack ↑
-
-// 배열 요소 순환(loop)
-// for 문, for ~ of문
-
-// 배열 복사
-let copiedArray;
-
-// 다차원 배열
-// 행렬을 저장하는 용도
-
-const matrix = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-];
-
-// 행렬의 정중앙에 위치한 요소를 찾으려면?
+// join : 배열 → 문자
+const arrayToString = stringToArray.join('-');
+console.log(arrayToString);
